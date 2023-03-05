@@ -18,21 +18,24 @@ namespace shell
 
         /**
          * @brief Создание правила
-         * @param required_variables вектор указателей на переменные для вывода
-         * @param positive_mask вектор логических значений, отвечающий за сравнение на равенство или неравенство
-         * @param conditions вектор индексов значений в доменах, с которыми сравниваются значения переменных
-         * @param target_variable указатель на выводимую в правиле переменную
-        */
+         * @param required_variables Вектор указателей на переменные для вывода
+         * @param positive_mask Вектор логических значений, отвечающий за сравнение на равенство или неравенство
+         * @param conditions Вектор индексов значений в доменах, с которыми сравниваются значения переменных
+         * @param target_variable Указатель на выводимую в правиле переменную
+         * @param setindex Индекс, устанавливаемый в переменную при выполнении условия
+         */
         template <typename TRequired = std::vector<std::shared_ptr<Variable>>,
                   typename TPositive = std::vector<bool>,
                   typename TConditions = std::vector<int>>
         Rule(TRequired &&required_variables,
              TPositive &&positive_mask,
              TConditions &&conditions,
-             std::shared_ptr<Variable> target_variable) : m_required_variables(std::forward<TRequired>(required_variables)),
-                                                          m_positive_mask(std::forward<TPositive>(positive_mask)),
-                                                          m_conditions(std::forward<TConditions>(conditions)),
-                                                          m_target_variable(target_variable)
+             std::shared_ptr<Variable> target_variable,
+             int setindex) : m_required_variables(std::forward<TRequired>(required_variables)),
+                             m_positive_mask(std::forward<TPositive>(positive_mask)),
+                             m_conditions(std::forward<TConditions>(conditions)),
+                             m_target_variable(target_variable),
+                             m_setindex(setindex)
         {
         }
 
@@ -42,6 +45,11 @@ namespace shell
          * @return true - если переменная выводится в правиле, false - иначе
          */
         bool deduces(std::shared_ptr<Variable> variable) const;
+
+        /**
+         * @brief Подтверждает выполнение условия и означивает целевую переменную
+         */
+        void confirm();
 
     private:
         // Переменные, необходимые для вывода
@@ -59,5 +67,8 @@ namespace shell
 
         // Переменная, которая выводится в правиле
         std::shared_ptr<Variable> m_target_variable;
+
+        // Индекс, устанавливаемый в переменную при выполнении всех условий
+        int m_setindex;
     };
 }

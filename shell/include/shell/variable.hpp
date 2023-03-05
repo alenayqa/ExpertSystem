@@ -34,20 +34,28 @@ namespace shell
                  TDomain &&domain,
                  VariableType variable_type) : m_domain(std::forward<TDomain>(domain)),
                                                m_name(name),
-                                               m_variable_type(variable_type)
+                                               m_variable_type(variable_type),
+                                               m_index(-1)
         {
-            m_index = -1;
         }
-
-        std::string get_value();
-        std::string get_name() const;
-        int get_index() const;
 
         /**
          * @brief Метод, показывающий, известно ли значение переменной
          * @return true - если значение известно, false - иначе
          */
         bool known() const;
+
+        /**
+         * @brief Присвоить переменной значение из домена
+         * @param index Индекс значения в домене
+         */
+        void set_index(int index);
+
+        std::string get_value();
+        std::string get_name() const;
+        int get_index() const;
+
+        
 
     private:
         // Индекс значения переменной в домене

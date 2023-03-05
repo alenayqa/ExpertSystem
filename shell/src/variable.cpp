@@ -7,6 +7,11 @@ bool Variable::known() const
     return m_index != -1;
 }
 
+void Variable::set_index(int index)
+{
+    m_index = index;
+}
+
 std::string Variable::get_name() const
 {
     return m_name;

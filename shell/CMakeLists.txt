@@ -8,9 +8,11 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 
 include_directories(include/)
+
 add_executable(${PROJECT_NAME} 
     test.cpp 
     src/variable.cpp
     src/domain.cpp
     src/rule.cpp
+    src/deduce_engine.cpp
 )
