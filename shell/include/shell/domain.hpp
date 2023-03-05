@@ -2,6 +2,7 @@
 
 #include <vector>
 #include <string>
+#include <iostream>
 
 namespace shell
 {
@@ -25,6 +26,12 @@ namespace shell
         {
         }
 
+        /**
+         * @brief Задать вопрос
+         */
+        void ask();
+
+        int size() const;
         std::string get_name() const;
         std::string &operator[](int idx);
 

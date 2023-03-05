@@ -30,28 +30,20 @@ namespace shell
         {
         }
 
-        bool inner_deduce(std::shared_ptr<Variable> target)
+        /**
+         * @brief Вывод целевой переменной
+         * @return true - если переменная была выведена, false - иначе
+         */
+        bool deduce()
         {
-            return target->known();
-        }
-
-        std::shared_ptr<Variable> deduce()
-        {
-            if (m_target_variable->known())
-            {
-                return m_target_variable;
-            }
-
-            for (auto& rule : m_rules)
-            {
-                if (rule.deduces(m_target_variable))
-                {
-                    
-                }
-            }
+            recursive_deduce(m_target_variable);
+            return m_target_variable->known();
         }
 
     private:
+        bool check_rule(Rule& rule);
+        bool recursive_deduce(std::shared_ptr<Variable> target);
+
         std::vector<Rule> m_rules;
         std::shared_ptr<Variable> m_target_variable;
     };

@@ -26,16 +26,19 @@ namespace shell
         /**
          * @brief Создание переменной
          * @param name Имя переменной
+         * @param question Вопрос
          * @param domain Домен
          * @param variable_type Тип переменной (запрашиваемая, выводимая, смешанный тип - VariableType::...)
          */
         template <typename TDomain = Domain>
         Variable(std::string name,
                  TDomain &&domain,
-                 VariableType variable_type) : m_domain(std::forward<TDomain>(domain)),
-                                               m_name(name),
-                                               m_variable_type(variable_type),
-                                               m_index(-1)
+                 VariableType variable_type,
+                 std::string question = "") : m_name(name),
+                                              m_domain(std::forward<TDomain>(domain)),
+                                              m_variable_type(variable_type),
+                                              m_question(question),
+                                              m_index(-1)
         {
         }
 
@@ -51,11 +54,21 @@ namespace shell
          */
         void set_index(int index);
 
+        /**
+         * @brief Задать вопрос
+         */
+        void ask();
+
+        /**
+         * @brief Определение количества значений в домене
+         * @return Количество возможных значенией
+         */
+        int domain_size() const;
+
         std::string get_value();
         std::string get_name() const;
         int get_index() const;
-
-        
+        VariableType get_variable_type() const;
 
     private:
         // Индекс значения переменной в домене
@@ -63,6 +76,7 @@ namespace shell
 
         Domain m_domain;
         std::string m_name;
+        std::string m_question;
         VariableType m_variable_type;
     };
 

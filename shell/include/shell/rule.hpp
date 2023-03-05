@@ -51,6 +51,28 @@ namespace shell
          */
         void confirm();
 
+        /**
+         * @brief Получение количества условий в правиле
+         * @return Количество условий
+         */
+        int size() const;
+
+        /**
+         * @brief Проверка, означена ли переменная с указанным индексом
+         * @param idx Индекс переменной
+         * @return true - если переменная означена, false - иначе
+         */
+        bool known(int idx);
+
+        /**
+         * @brief Проверка выполнения условия под указанным номером
+         * @param idx Номер условия
+         * @return true - если условие выполнено, false - иначе
+         */
+        bool check_condition(int idx);
+
+        const std::shared_ptr<Variable>& operator[](int idx);
+
     private:
         // Переменные, необходимые для вывода
         std::vector<std::shared_ptr<Variable>> m_required_variables;

@@ -7,6 +7,18 @@ bool Variable::known() const
     return m_index != -1;
 }
 
+void Variable::ask()
+{
+    std::cout << m_question << std::endl;
+    m_domain.ask();
+}
+
+int Variable::domain_size() const
+{
+    return m_domain.size();
+}
+
+
 void Variable::set_index(int index)
 {
     m_index = index;
@@ -29,6 +41,11 @@ std::string Variable::get_value()
 int Variable::get_index() const
 {
     return m_index;
+}
+
+VariableType Variable::get_variable_type() const
+{
+    return m_variable_type;
 }
 
 std::ostream &operator<<(std::ostream &os, shell::Variable &variable)
