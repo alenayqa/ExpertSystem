@@ -1,0 +1,1 @@
+/usr/bin/g++ -g CMakeFiles/shell.dir/test.cpp.o CMakeFiles/shell.dir/src/variable.cpp.o CMakeFiles/shell.dir/src/domain.cpp.o CMakeFiles/shell.dir/src/rule.cpp.o -o shell 
